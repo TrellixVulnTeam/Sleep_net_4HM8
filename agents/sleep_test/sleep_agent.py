@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from graphs.models.custom_unet import *
 from graphs.models.bilstm_att import *
 from graphs.models.custom_layers.eeg_encoders import *
+import os.path
 
 class Sleep_Agent():
     def __init__(self, config):
@@ -56,6 +57,13 @@ class Sleep_Agent():
             savior["logs"] = self.logs
             save_dict.update(savior)
             try:
+                if self.logs["current_step"] == 0 and os.path.isfile(file_name) :
+                    for i in range(10000):
+                        new_file_name = file_name.split(".")[-2]+"({})".format(i)+".pth.tar"
+                        if not os.path.isfile(new_file_name):
+                            break
+                    file_name = new_file_name
+                    self.config.save_dir = new_file_name
                 torch.save(save_dict, file_name)
                 if self.config.verbose:
                     print("Models has saved successfully in {}".format(file_name))

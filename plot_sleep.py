@@ -215,7 +215,7 @@ config = process_config(config)
 config.test_batch_size = 256
 config.print_statistics = False
 
-config.save_dir = "/users/sista/kkontras/Documents/Sleep_Project/data/2021_data/shhs_sleepTransormer_eeg_bfc.pth.tar"
+# config.save_dir = "/users/sista/kkontras/Documents/Sleep_Project/data/2021_data/shhs_sleepTransformer_eeg_bfc.pth.tar"
 
 
 device = "cuda:{}".format(config.gpu_device[0])
@@ -228,7 +228,7 @@ model = model.to(device)
 model = nn.DataParallel(model, device_ids=[torch.device(i) for i in config.gpu_device])
 model.load_state_dict(checkpoint["best_model_state_dict"])
 
-if config.save_dir == "/users/sista/kkontras/Documents/Sleep_Project/data/2021_data/shhs_sleepTransormer_eeg_bfc.pth.tar":
+if config.save_dir == "/users/sista/kkontras/Documents/Sleep_Project/data/2021_data/shhs_sleepTransformer_eeg_bfc.pth.tar":
     train_logs = checkpoint["train_logs"]
     test_logs = checkpoint["test_logs"]
     best_logs = checkpoint["best_logs"]
